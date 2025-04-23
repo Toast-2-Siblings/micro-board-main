@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+import environ
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -27,6 +29,11 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*', '0.0.0.0', 'localhost']
 
+# 서비스 URL 설정
+# .env 파일에서 환경변수 가져오기
+env = environ.Env()
+environ.Env.read_env(os.path.join(BASE_DIR, ".env"))  # 여기서 .env 읽는지 확인
+COMMENT_SERVICE_URL = env("COMMENT_SERVICE_URL")
 
 # Application definition
 

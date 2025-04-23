@@ -1,0 +1,12 @@
+# */migrations/*
+**/migrations/__pycache__/*
+**/migrations/*.py
+/__pycache__/
+*.pyc
+
+*.sqlite3
+/micro_board_main_venv/
+
+# 마이그레이션 기본 파일은 유지
+!**/migrations/__init__.py
+# !**/migrations/__pycache__/__init__.cpython-310.pyc

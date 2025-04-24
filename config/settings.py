@@ -35,7 +35,15 @@ ALLOWED_HOSTS = ['*', '0.0.0.0', 'localhost']
 # .env 파일에서 환경변수 가져오기
 env = environ.Env()
 environ.Env.read_env(os.path.join(BASE_DIR, ".env"))  # 여기서 .env 읽는지 확인
+
+# 환경변수에서 서비스 URL 가져오기
 COMMENT_SERVICE_URL = env("COMMENT_SERVICE_URL")
+
+# Redis 설정
+REDIS_HOST = env("REDIS_HOST", default="localhost")
+REDIS_PORT = env.int("REDIS_PORT", default=6379)
+REDIS_DB = env.int("REDIS_DB", default=0)
+
 
 # Application definition
 

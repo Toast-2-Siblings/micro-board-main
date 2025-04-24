@@ -10,9 +10,11 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
+from datetime import timedelta
 from pathlib import Path
 import environ
 import os
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -49,6 +51,8 @@ INSTALLED_APPS = [
     'corsheaders', 
     'rest_framework', 
     'rest_framework_simplejwt', 
+    
+    'users'
 ]
 
 MIDDLEWARE = [
@@ -166,9 +170,9 @@ REST_FRAMEWORK = {
 }
 
 REST_USE_JWT = True
-'''
+
 # Custom user model (커스텁 유저 모델 사용시)
-AUTH_USER_MODEL = "users.UserInfo"
+AUTH_USER_MODEL = "users.User"
 
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(days=7),
@@ -203,5 +207,5 @@ SIMPLE_JWT = {
     'SLIDING_TOKEN_LIFETIME': timedelta(minutes=5),
     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
 }
-'''
+
 

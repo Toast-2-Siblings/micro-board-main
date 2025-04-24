@@ -8,7 +8,7 @@ from django.core.exceptions import ValidationError
 # UserInfo() 클래스를 관리하는 추상모델(장고의 기본 유저모델을 상속받아 커스터마이징 및 인증)
 class UserManager(BaseUserManager):
     # def create_user(self, user_id, password, user_name, user_birth, user_contact, user_email, user_register_date, **extra_fields):
-    def create_user(self, user_id, password, user_name, user_email, user_gender, **extra_fields):
+    def create_user(self, user_id, password, user_name, user_email, **extra_fields):
         if not user_email:
             raise ValueError('Users must have an email address')
 
@@ -40,7 +40,7 @@ class UserManager(BaseUserManager):
         
         return user
 
-    def create_superuser(self, user_id, password, user_name, user_email, user_gender, user_created_at, **extra_fields):
+    def create_superuser(self, user_id, password, user_name, user_email, user_created_at, **extra_fields):
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
 

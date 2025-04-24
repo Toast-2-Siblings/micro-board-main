@@ -16,6 +16,10 @@ from users.serializers import RegisterSerializer
 import re
 import os
 
+import json
+import redis
+
+
 def validate_password(password):
     # 최소 9글자 이상, A-Z, a-z, 0-9, 특수문자 중 3종류 이상의 조합
     regex = (
@@ -30,6 +34,16 @@ def validate_password(password):
         return True
     else:
         return False
+
+# 사용자 회원가입시 Redis Pub/Sub을 통해 사용자 생성 이벤트를 발행
+def publish_user_created(user_id, user_name):
+    r = redis.Redis(
+        host=settings.REDIS_HOST,
+        port=settings.REDIS_PORT,
+        db=settings.REDIS_DB
+    )
+    message = json.dumps({"user_id": user_id, "user_name": user_name})
+    r.publish("user_created", message)
 
 
 # /auth
@@ -185,7 +199,8 @@ class AccountAPIView(APIView):
 
                 user = registerSerializer.save()
                 user = User.objects.get(user_id=user_id)
-
+                
+                publish_user_created(user.user_id, user.user_name) # Redis Pub/Sub
 
                 res = Response(
                     {
